@@ -1,0 +1,9 @@
+{
+  "id": "friday-multi-agent-orchestration-research-digest",
+  "name": "Friday multi-agent orchestration research digest",
+  "schedule": "CRON_TZ=America/New_York 0 9 * * 5",
+  "timing": "flexible",
+  "earlyMinutes": 30,
+  "lateMinutes": 30,
+  "prompt": "Run @Multi-Agent Control Hub Playbook. First read /workspace/engineering/shared/multi-agent-research-index.json so you skip any paper, report, or article already covered. Find 3 to 5 worthwhile new papers, technical reports, or engineering articles published recently about multi-agent AI orchestration across Grok, Claude, and ChatGPT (using WebSearch, WebFetch, or the firecrawl CLI). Prioritize coordination frameworks, agent security, tool permissions, approval gates, and automated QA, and skip minor announcements. Verify each primary source link before including it. Append the new entries (with id, date, title, url, key_findings, and applied_rule) to /workspace/engineering/shared/multi-agent-research-index.json and /workspace/engineering/shared/multi-agent-research-index.md, rebuild the SQLite FTS5 index via `python3 /workspace/engineering/shared/query_research_index.py --rebuild`, and update the Multi-Agent Control Hub Playbook skill if a finding introduces a new operational rule worth enforcing across all bots. Send the digest to the user in this chat with each item's verified markdown link, key findings, and practical implications for the agent control hub, plus a one-line note confirming the index and playbook skill were updated; if nothing notable was published this week, send a brief note saying so."
+}

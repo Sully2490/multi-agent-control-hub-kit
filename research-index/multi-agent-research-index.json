@@ -1,0 +1,86 @@
+{
+  "updated_at": "2026-10-28",
+  "entries": [
+    {
+      "id": "arxiv:2610.31709",
+      "date_published": "2026-10-22",
+      "digest_date": "2026-10-28",
+      "category": "Coordination Frameworks & Workflow Topologies",
+      "title": "Mining the Design Space of Multi-Agent Workflows",
+      "authors": "Xavier Cadet, Junyan Cheng, Peter Chin, Kyle Richardson",
+      "url": "https://arxiv.org/abs/2610.31709",
+      "companion_url": "https://arxiv.org/abs/2610.34467",
+      "key_findings": "Across 28,568 executable workflows and 1,701 MCTS traces (GPT-5.4/mini/nano), Star-first parallel fan-out hurt accuracy (-0.045, p=0.038). Persistent SharedMemory beat conversational Debate (+0.135, p=0.011; +0.143 when SharedMemory ran first), and explicit placeholder-bound context routing added +0.118 (p=0.002). DynaFlow (2610.34467) showed training only the lead orchestrator to synthesize executable DAGs with cross-stage verification boosted accuracy by +10.90 pp to 88.08%.",
+      "applied_rule": "Write a unified spec/state artifact into shared disk (/workspace/engineering/shared/ or /cursor/stores/) first and pass explicit, non-overlapping slot-bound tasks to workers rather than using uncoordinated parallel fan-out or free-form bot chat debate."
+    },
+    {
+      "id": "arxiv:2610.21063",
+      "date_published": "2026-10-15",
+      "digest_date": "2026-10-28",
+      "category": "Tool Permissions & Step-Up Approval Gates",
+      "title": "Approve What, Exactly? Effect Binding and Trusted Rendering for Agent Step-Up Authorization",
+      "authors": "Sai Varun Kodathala, Prashanth Pollishetty, Jaylen Cargill",
+      "url": "https://arxiv.org/abs/2610.21063",
+      "companion_urls": [
+        "https://developers.openai.com/api/docs/guides/agents/guardrails-approvals",
+        "https://www.anthropic.com/engineering/claude-code-auto-mode"
+      ],
+      "key_findings": "Audited 10 deployed runtimes across 27,108 trials and 609 AgentDojo attack pairs. 4 of 8 runtimes allowed post-approval argument tampering between pause and resume. Agent-authored approval text enabled 54% forged-narration attack success; canonical payload rendering dropped ASR from 54% to 3% and raised LLM approver catch rates from 30% to 98%. Anthropic Claude Code Auto Mode strips assistant prose and tool outputs, inspecting only user asks + raw tool calls (cutting false positives from 8.5% to 0.4%).",
+      "applied_rule": "Bind approvals strictly to the canonical [tool, target, arguments] tuple, strip subagent persuasive narration before evaluating policy/scope, and cap concurrent approval requests to prevent approval-fatigue flooding."
+    },
+    {
+      "id": "arxiv:2610.28425",
+      "date_published": "2026-10-20",
+      "digest_date": "2026-10-28",
+      "category": "Agent Security: Persistent Memory & Evaluator Scope-Gap Injections",
+      "title": "After the Attacker Leaves: Benchmarking Carryover Attacks on LLM Agents",
+      "authors": "Zhiyue Xu et al.",
+      "url": "https://arxiv.org/abs/2610.28425",
+      "companion_urls": [
+        "https://arxiv.org/abs/2610.34777",
+        "https://www.anthropic.com/engineering/how-we-contain-claude"
+      ],
+      "key_findings": "CarryoverBench (101 tasks across GPT-5.4, Claude-Sonnet-4.6, Gemini-3.1-Pro, GLM-5, Qwen3-235B) showed that once an injection is planted into long-lived memory or a scheduled routine, conditional trigger probability is ~1.0 with zero decay across 5 future wakes. Scope-Gap Injection (2610.34777) showed LLM safety judges inspecting SKILL.md without expanding external worklists/helper files raised attack acceptance from 23% to 78%.",
+      "applied_rule": "Treat writes to durable memory, SKILL.md, helper files, and routine prompts as privileged sinks; audit attached worklists and helper files alongside the delegating prompt."
+    },
+    {
+      "id": "arxiv:2610.36108",
+      "date_published": "2026-10-26",
+      "digest_date": "2026-10-28",
+      "category": "MCP Tool Governance, Post-Hoc Exfiltration & Provenance Binding",
+      "title": "Log-To-Leak: Prompt Injection Attacks on Tool-Using LLM Agents via the Model Context Protocol",
+      "authors": "Yuepeng Hu, Chongyu Fan, Sirat Samyoun, Jian Du",
+      "url": "https://arxiv.org/abs/2610.36108",
+      "companion_urls": [
+        "https://arxiv.org/abs/2610.31974",
+        "https://arxiv.org/abs/2610.23449",
+        "https://docs.x.ai/developers/tools/remote-mcp"
+      ],
+      "key_findings": "Poisoned MCP tool metadata can instruct an agent to finish the legitimate task first and then silently call a secondary MCP logging/write tool to exfiltrate data (62.64%-100% ASR while changing task accuracy by <=6.63 pp). GatewayBench (2610.23449, 11,118 tools across 251 MCP servers) showed flat tool catalogs degrade selection and security vs hierarchical discovery + allowed_tools scoping. Decode-time HMAC provenance binding (2610.31974) reduced MCP exfiltration from 100% to 0%.",
+      "applied_rule": "Use hierarchical tool discovery (GetDynamicTools) and read-only tool scopes for research/parsing workers; block any external write/network sink call after reading untrusted content unless explicitly requested by the user."
+    },
+    {
+      "id": "arxiv:2610.35950",
+      "date_published": "2026-10-24",
+      "digest_date": "2026-10-28",
+      "category": "Automated QA & Mechanical Verification Loops",
+      "title": "PASS Is a Claim, Not an Observation: Mechanical Re-verification of 10 Self-Asserted Fix Claims in a Live Multi-Agent Audit Layer",
+      "authors": "Lei Zhenbing, Lei Chang",
+      "url": "https://arxiv.org/abs/2610.35950",
+      "companion_url": "https://arxiv.org/abs/2610.32060",
+      "key_findings": "Mechanical re-verification of coordinator PASS broadcasts in a live multi-agent system found 50% (4/8) of verifiable PASS claims failed AST/call-site checks (patched wrong directory, wrong service file, or unverified predicate). Peer-conformity dynamics (2610.32060) caused agents in 3,211 failed trajectories to abandon valid minority findings.",
+      "applied_rule": "Treat every subagent or cloud agent PASS/done report as an unverified claim. Always run independent, deterministic mechanical checks (git diff/AST call-site verification, test exit codes, CSV row/sum reconciliation scripts, and live URL checks) before reporting completion."
+    },
+    {
+      "id": "arxiv:2610.32155",
+      "date_published": "2026-10-23",
+      "digest_date": "2026-10-28",
+      "category": "Compositional Skill Security & Capability-Flow Auditing",
+      "title": "Detecting Insecure Compositions of Clean Agent Skills via Capability-Flow Graph Analysis",
+      "authors": "Yihao Li, Chuanpu Fu, Yizhou Zhao, Miao Chen, Qi Li, Ke Xu",
+      "url": "https://arxiv.org/abs/2610.32155",
+      "key_findings": "Analyzed 13,598 individually clean agent skills across 3 agent frameworks and 3 LLMs using KnotScryer (Skill Capability-Flow Graph + reachability replay + task-anchored LLM chain audit). Identified 612 exploitable cross-skill violation chains (85.6% exploitation rate vs 16.5%-18.2% for tag/graph baselines while cutting search space by 85.3%). Crucially, 13.7% of exploitable chains consisted entirely of skills rated safe by single-skill scanners, triggered when an upstream skill passes untrusted or protected data into a downstream skill's input.",
+      "applied_rule": "Audit cross-skill handoffs (Skill Capability-Flow), not just individual SKILL.md files: never pipe raw output from an external scraping/search skill (like firecrawl or web fetch) directly into a downstream skill or tool that mutates state, executes shell commands, or sends external messages without structured schema validation and sanitization."
+    }
+  ]
+}
